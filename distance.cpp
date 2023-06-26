@@ -55,3 +55,10 @@ public:
   }
 
 };
+
+class Solution3{
+public:
+    int verifica(string word1, string word2, int D){
+        return 0;
+    }
+};
