@@ -1,13 +1,17 @@
 #include<vector>
 #include<string>
+#include <iostream>
 
 /*
 Basado en el código entregado por Vicente en laboratorio, se modificaron líneas tal que solo considere las operaciones
-INSERT - DELETE, dejando fuera el SWAP
+INSERT - DELETE, dejando fuera el REPLACE
 */
 
 using namespace std;
 
+/*
+----------Solución clásica usando recursividad------------
+*/
 class Solution1{
 public:
     vector<vector<int>> dp;
@@ -34,6 +38,9 @@ public:
     }
 };
 
+/*
+------------Solución clásica usando iteraciones--------------
+*/
 class Solution2{
 public:
   int minDistance(string word1, string word2) {
@@ -56,9 +63,84 @@ public:
 
 };
 
+/*
+---------------------------Solución adaptativa----------------------------
+Este algoritmo fue pensado y trabajado junto a mi compañero Mario Aguilera 
+
+*/
 class Solution3{
 public:
     int verifica(string word1, string word2, int D){
-        return 0;
+
+        int m = word1.length();     // tamaño de del string source (m) y target (n)
+        int n = word2.length();
+  
+        // Incluso en el mejor caso, la distancia d entre 2 palabras será no menor a |m-n|
+        if (abs(m - n) > D) {
+            return m + n + 1;
+        }
+
+        // Ajuste conveniente, para trabajar siempre con una matriz de proporcion similar
+        // cuando no es cuadrada
+        if (m > n) {
+                swap(word1, word2);
+                swap(m, n);
+            }
+        
+        // Inicializamos la matriz de tamaño (m+1)(n+1)
+        vector<vector<int>> dp(m+1, vector<int>(n+1));
+
+        // Se inicializan los valores de las "paredes" del corredor de ancho 2D, y
+        // las primeras D celdas de la primera fila y columna
+        for(int i = 0; i <= m; i++){    // O(m)
+            dp[i][max(0,i-D-1)] = i;
+        } 
+  
+        for(int i=0; i <= n; i++){      // O(n)
+            dp[max(0,i-D-1)][i] = i;    
+        } 
+
+        // Se calculan solo los valores dentro del corredor, con el mismo algoritmo
+        // utilizado en el método clásico (para INSERT-DELETE)
+        for (int i = 1; i <= m; i++) {
+            for (int j = max(1,i-D); j <=min(n,i+D); j++) {
+                if (word1[i-1] == word2[j-1]) {
+                    dp[i][j] = dp[i-1][j-1]; 
+                } else {
+                    dp[i][j] = 1 + min(dp[i-1][j], dp[i][j-1]);
+
+                }
+            }
+        }
+
+        if(dp[m][n] <= D){      // devolvemos el d obtenido si es menor a D
+            return dp[m][n];
+        }
+        return (m + n + 1);     //j devolvemos (m+n+1) si no es mayor a D
+                return 0;
+            };
+
+    int minDistance(string word1, string word2) {
+
+        int m = word1.length();
+        int n = word2.length();
+
+        int jump=1;
+        int result;
+
+        while(jump<=m+n){
+
+            result = verifica(word1,word2,jump);
+            cout<<"Para jump "<<jump<<" verifica retorna "<<result<<endl;
+            if(result < m+n+1){
+            return result;
+            }
+            if(jump*2>m+n){
+            jump = m+n;
+            }else{
+            jump=jump*2;
+            }
+        }
+        return n+m;
     }
 };
