@@ -83,12 +83,12 @@ public:
         // Ajuste conveniente, para trabajar siempre con una matriz de proporcion similar
         // cuando no es cuadrada
         if (m > n) {
-                swap(word1, word2);
-                swap(m, n);
+            swap(word1, word2);
+            swap(m, n);
             }
         
         // Inicializamos la matriz de tamaño (m+1)(n+1)
-        vector<vector<int>> dp(m+1, vector<int>(n+1));
+        int dp[m+1][n+1];
 
         // Se inicializan los valores de las "paredes" del corredor de ancho 2D, y
         // las primeras D celdas de la primera fila y columna
@@ -113,10 +113,10 @@ public:
             }
         }
 
-        if(dp[m][n] <= D){      // devolvemos el d obtenido si es menor a D
+        if(dp[m][n] <= D){      // devolvemos el d obtenido si es menor o igual a D
             return dp[m][n];
         }
-        return (m + n + 1);     // devolvemos (m+n+1) si no es mayor a D
+        return (m + n + 1);     // devolvemos (m+n+1) si es mayor a D
                 return 0;
             };
 
@@ -133,7 +133,7 @@ public:
             result = verifica(word1,word2,iter);
   
             if(result < m+n+1){     // si obtenemos un valor menor a D, devuelve ese valor
-            cout<<"Distancia encontrada para D: "<<iter<<endl;
+            cout<<"Distancia encontrada para D = "<<iter<<endl;
             return result;
             }
             if(iter*2>m+n){     // si la siguiente iteración escapa del límite m+n, fija iter = m+n
