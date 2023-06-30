@@ -116,7 +116,7 @@ public:
         if(dp[m][n] <= D){      // devolvemos el d obtenido si es menor a D
             return dp[m][n];
         }
-        return (m + n + 1);     //j devolvemos (m+n+1) si no es mayor a D
+        return (m + n + 1);     // devolvemos (m+n+1) si no es mayor a D
                 return 0;
             };
 
@@ -125,20 +125,20 @@ public:
         int m = word1.length();
         int n = word2.length();
 
-        int jump=1;
+        int iter=1;
         int result;
 
-        while(jump<=m+n){
+        while(iter<=m+n){   // llamamos a verifica para D = 2^i, i in [0,1,2,3,...,log2(d)]
 
-            result = verifica(word1,word2,jump);
-            cout<<"Para jump "<<jump<<" verifica retorna "<<result<<endl;
-            if(result < m+n+1){
+            result = verifica(word1,word2,iter);
+            cout<<"Para jump "<<iter<<" verifica retorna "<<result<<endl;
+            if(result < m+n+1){     // si obtenemos un valor menor a D, devuelve ese valor
             return result;
             }
-            if(jump*2>m+n){
-            jump = m+n;
+            if(iter*2>m+n){     // si la siguiente iteración escapa del límite m+n, fija iter = m+n
+            iter = m+n;
             }else{
-            jump=jump*2;
+            iter=iter*2;    // doblamos iter para la siguiente llamada
             }
         }
         return n+m;
