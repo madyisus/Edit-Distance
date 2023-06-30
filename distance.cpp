@@ -131,8 +131,9 @@ public:
         while(iter<=m+n){   // llamamos a verifica para D = 2^i, i in [0,1,2,3,...,log2(d)]
 
             result = verifica(word1,word2,iter);
-            cout<<"Para jump "<<iter<<" verifica retorna "<<result<<endl;
+  
             if(result < m+n+1){     // si obtenemos un valor menor a D, devuelve ese valor
+            cout<<"Distancia encontrada para D: "<<iter<<endl;
             return result;
             }
             if(iter*2>m+n){     // si la siguiente iteración escapa del límite m+n, fija iter = m+n
