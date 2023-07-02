@@ -35,7 +35,7 @@ double execTimeForKAttempts(T& distance_func, string word1, string word2,int K){
         auto endTime = std::chrono::high_resolution_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::microseconds> (endTime - startTime).count();
 
-        totalTime += duration/K;
+        totalTime += duration;
     }
     return totalTime/K;
 }
