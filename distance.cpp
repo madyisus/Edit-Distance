@@ -133,7 +133,7 @@ public:
             result = verifica(word1,word2,iter);
   
             if(result < m+n+1){     // si obtenemos un valor menor a D, devuelve ese valor
-            cout<<"Distancia encontrada para D = "<<iter<<endl;
+            // cout<<"Distancia encontrada para D = "<<iter<<endl;
             return result;
             }
             if(iter*2>m+n){     // si la siguiente iteración escapa del límite m+n, fija iter = m+n
