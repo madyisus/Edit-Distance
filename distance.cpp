@@ -136,9 +136,12 @@ public:
             // cout<<"Distancia encontrada para D = "<<iter<<endl;
             return result;
             }
-            if(iter*2>m+n){     // si la siguiente iteración escapa del límite m+n, fija iter = m+n
+
+            if(2*iter>m+n){     // si la siguiente iteración escapa del límite m+n, fija iter = m+n
             iter = m+n;
-            }else{
+            }
+            
+            else{
             iter=iter*2;    // doblamos iter para la siguiente llamada
             }
         }
